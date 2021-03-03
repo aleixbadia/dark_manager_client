@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Signup from './pages/Signup/Signup';
 import Login from './pages/Login/Login';
-import Private from './pages/Private/Private';
+import Brand from './pages/Brand/Brand';
 
 // Components
 import Navbar from './components/Navbar/Navbar';
@@ -21,12 +21,30 @@ class App extends Component {
         <Navbar />
 
         <Switch>
-          <Route exact path="/" component={Home} />
-
-          <AnonRoute exact path="/signup" component={Signup} />
+          {/*CLIENT ROUTES*/}
           <AnonRoute exact path="/login" component={Login} />
+          <AnonRoute exact path="/signup" component={Signup} />
+          <PrivateRoute exact path="/:userId" component={Profile} />
 
-          <PrivateRoute exact path="/private" component={Private} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/:brandName" component={Brand} />
+          <PrivateRoute exact path="/checkout" component={Checkout} />
+
+          {/*EMPLOYEE ROUTES*/}
+          <AnonRoute exact path="/dark-manager/login" component={Signup} />
+          <PrivateRoute exact path="/dark-manager" component={AdminHome} /> {/*We need to create a new AnonRoute for the employees part*/}
+          <PrivateRoute exact path="/dark-manager/orders" component={Orders} />
+          <PrivateRoute exact path="/dark-manager/stock" component={Stock} />
+          <PrivateRoute exact path="/dark-manager/stats" component={Stats} />
+          <PrivateRoute exact path="/dark-manager/create" component={Create} />
+          <PrivateRoute exact path="/dark-manager/order/:id" component={OrderDetails} />
+          <PrivateRoute exact path="/dark-manager/user/:id" component={UserDetails} />
+          <PrivateRoute exact path="/dark-manager/recipe/:id" component={RecipeDetails} />
+          <PrivateRoute exact path="/dark-manager/ingridient/:id" component={IngridientDetails} />
+          <PrivateRoute exact path="/dark-manager/packaging/:id" component={PackagingDetails} />
+          <PrivateRoute exact path="/dark-manager/brand/:id" component={BrandDetails} />
+
+
         </Switch>
       </div>
     );
