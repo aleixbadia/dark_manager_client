@@ -2,13 +2,13 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import { withAuth } from './../../context/auth-context';
 
-// Route that only allows access to a user who is not logged in
+// Route that forbids access to a user who is not logged in
 
-function AnonRoute (routeProps) {
+function PrivateRoute (routeProps) {
   // Value coming from `AuthProvider` ( via `withAuth` )
   const { isLoggedIn, isLoading } = routeProps;
 
-  // Values coming from the AnonRoute itself
+  // Values coming from the PrivateRoute itself
   const ComponentToShow = routeProps.component;
   const { exact, path } = routeProps;
 
@@ -21,8 +21,8 @@ function AnonRoute (routeProps) {
       path={path}
       render={
         function(props) {
-          if (isLoggedIn) return <Redirect to="/" />
-          else if (! isLoggedIn) return <ComponentToShow {...props} />
+          if (! isLoggedIn) return <Redirect to="/dark-manager/login" />;
+          else if (isLoggedIn) return <ComponentToShow {...props} />;
         }
       }
      />
@@ -30,4 +30,4 @@ function AnonRoute (routeProps) {
 }
 
 
-export default withAuth(AnonRoute);
+export default withAuth(PrivateRoute);
