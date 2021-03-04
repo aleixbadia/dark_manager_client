@@ -6,6 +6,7 @@ const { Consumer, Provider } = React.createContext();
 class AuthProvider extends React.Component {
   state = {
     isLoggedIn: false,
+    isAdmin: false,
     isLoading: true,
     user: null,
   };
@@ -13,31 +14,93 @@ class AuthProvider extends React.Component {
   componentDidMount() {
     authService
       .me()
-      .then((user) =>
-        this.setState({ isLoggedIn: true, user, isLoading: false })
-      )
+      .then((user) => {
+        if (user.role === "client") {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: false,
+            isLoading: false,
+          });
+        } else {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: true,
+            isLoading: false,
+          });
+        }
+      })
       .catch((err) => {
         this.setState({ isLoggedIn: false, user: null, isLoading: false });
         console.log("auth-context - DidMount error => ", err);
       });
   }
 
-  signup = (username, password) => {
+  signup = (
+    role,
+    firstName,
+    lastName,
+    email,
+    password,
+    phone,
+    street,
+    city,
+    postCode,
+    profilePic
+  ) => {
     authService
-      .signup(username, password)
-      .then((user) => this.setState({ isLoggedIn: true, user }))
+      .signup(
+        role,
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
+        street,
+        city,
+        postCode,
+        profilePic
+      )
+      .then((user) => {
+        if (user.role === "client") {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: false,
+          });
+        } else {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: true,
+          });
+        }
+      })
       .catch((err) => {
-        this.setState({ isLoggedIn: false, user: null });
         console.log("auth-context - signup error => ", err);
       });
   };
 
-  login = (username, password) => {
+  login = (email, password) => {
     authService
-      .login(username, password)
-      .then((user) => this.setState({ isLoggedIn: true, user }))
+      .login(email, password)
+      .then((user) => {
+        if (user.role === "client") {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: false,
+          });
+        } else {
+          this.setState({
+            user,
+            isLoggedIn: true,
+            isAdmin: true,
+          });
+        }
+      })
       .catch((err) => {
-        this.setState({ isLoggedIn: false, user: null });
         console.log("auth-context - login error => ", err);
       });
   };
@@ -69,11 +132,12 @@ const withAuth = (WrappedComponent) => {
     return (
       <Consumer>
         {(value) => {
-          const { isLoggedIn, isLoading, user, signup, login, logout } = value;
+          const { isLoggedIn, isAdmin, isLoading, user, signup, login, logout } = value;
 
           return (
             <WrappedComponent
               isLoggedIn={isLoggedIn}
+              isAdmin={isAdmin}
               isLoading={isLoading}
               user={user}
               signup={signup}

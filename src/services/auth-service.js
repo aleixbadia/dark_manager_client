@@ -8,22 +8,41 @@ class AuthService {
     });
   }
 
-  signup(username, password) {
+  signup(
+    role,
+    firstName,
+    lastName,
+    email,
+    password,
+    phone,
+    street,
+    city,
+    postCode,
+    profilePic
+  ) {
     const pr = this.auth
-      .post("/auth/signup", { username, password })
+      .post("/auth/signup", {
+        role,
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
+        street,
+        city,
+        postCode,
+        profilePic,
+      })
       .then((response) => response.data)
       .catch((err) => console.log("auth-service - signup error => ", err));
-    // .then(({ data }) => data); // Shorter way of `.then((response) => response.data);`
-
     return pr;
   }
 
-  login(username, password) {
+  login(email, password) {
     const pr = this.auth
-      .post("/auth/login", { username, password })
+      .post("/auth/login", { email, password })
       .then((response) => response.data)
       .catch((err) => console.log("auth-service - login error => ", err));
-
     return pr;
   }
 
@@ -32,7 +51,6 @@ class AuthService {
       .get("/auth/logout")
       .then((response) => response.data)
       .catch((err) => console.log("auth-service - logout error => ", err));
-
     return pr;
   }
 
