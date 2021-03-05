@@ -113,13 +113,13 @@ class AuthProvider extends React.Component {
   };
 
   render() {
-    const { isLoggedIn, isLoading, user } = this.state;
+    const { isLoggedIn, isAdmin, isLoading, user } = this.state;
     const { signup, login, logout } = this;
 
     if (isLoading) return <p>Loading</p>;
 
     return (
-      <Provider value={{ isLoggedIn, isLoading, user, signup, login, logout }}>
+      <Provider value={{ isLoggedIn, isAdmin, isLoading, user, signup, login, logout }}>
         {this.props.children}
       </Provider>
     );
