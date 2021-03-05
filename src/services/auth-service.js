@@ -9,7 +9,6 @@ class AuthService {
   }
 
   signup(
-    role,
     firstName,
     lastName,
     email,
@@ -22,7 +21,6 @@ class AuthService {
   ) {
     const pr = this.auth
       .post("/auth/signup", {
-        role,
         firstName,
         lastName,
         email,
