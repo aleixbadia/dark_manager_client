@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Login.css";
 import { withAuth } from "./../../context/auth-context";
 
 class Login extends Component {
@@ -24,9 +25,7 @@ class Login extends Component {
 
     return (
       <div>
-        <h1>Login</h1>
-
-        <form onSubmit={this.handleFormSubmit}>
+        <form className="login-form" onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
           <input
             type="text"

@@ -30,7 +30,7 @@ export class Home extends Component {
         {users.map((user) => (
           <div key={user._id}>
             <h2>
-              {user.name.firstName} {user.name.lastName}
+              {user.name.firstName} {user.name.lastName} {user.role} {user.email}
             </h2>
           </div>
         ))}

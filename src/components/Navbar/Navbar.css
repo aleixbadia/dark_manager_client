@@ -1,0 +1,47 @@
+.navbar {
+  width: 100%;
+  background-color: rgb(133, 191, 196);
+  color: white;
+  height: 60px;
+  font-size: 1rem;
+}
+
+.nav-link {
+  height: 100%;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+button.navbar-button {
+  padding: 5px 20px;
+  width: 100px;
+  margin: 15px 10px;
+  border-radius: 3px;
+}
+
+#home-btn {
+  color: white;
+  text-decoration: none;
+}
+
+#logo {
+  width: 100px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexsb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
