@@ -54,7 +54,16 @@ class UserService {
     return pr;
   }
 
-  updateUser(id) {
+  updateUser(
+    id,
+    firstName,
+    lastName,
+    phone,
+    street,
+    city,
+    postCode,
+    profilePic
+  ) {
     const pr = this.userApi
       .post(`/update/:${id}`, {
         firstName,

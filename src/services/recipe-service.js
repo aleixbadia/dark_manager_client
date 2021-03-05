@@ -8,25 +8,20 @@ class RecipeService {
     });
   }
 
-  createRecipe(
-    name,
-    brandId,
-    price,
-    ingredients,
-    recipePackaging,
-    picture,
-  ) {
+  createRecipe(name, brandId, price, ingredients, recipePackaging, picture) {
     const pr = this.recipeApi
       .post("/create", {
-      name,
-      brandId,
-      price,
-      ingredients,
-      recipePackaging,
-      picture,
+        name,
+        brandId,
+        price,
+        ingredients,
+        recipePackaging,
+        picture,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("recipe-service - createRecipe error => ", err));
+      .catch((err) =>
+        console.log("recipe-service - createRecipe error => ", err)
+      );
     return pr;
   }
 
@@ -34,7 +29,9 @@ class RecipeService {
     const pr = this.recipeApi
       .get("/")
       .then((response) => response.data)
-      .catch((err) => console.log("recipe-service - getAllRecipes error => ", err));
+      .catch((err) =>
+        console.log("recipe-service - getAllRecipes error => ", err)
+      );
     return pr;
   }
 
@@ -42,22 +39,34 @@ class RecipeService {
     const pr = this.recipeApi
       .get(`/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("recipe-service - getRecipeById error => ", err));
+      .catch((err) =>
+        console.log("recipe-service - getRecipeById error => ", err)
+      );
     return pr;
   }
 
-  updateRecipe(id) {
+  updateRecipe(
+    id,
+    name,
+    brandId,
+    price,
+    ingredients,
+    recipePackaging,
+    picture
+  ) {
     const pr = this.recipeApi
       .post(`/update/:${id}`, {
-      name,
-      brandId,
-      price,
-      ingredients,
-      recipePackaging,
-      picture,
+        name,
+        brandId,
+        price,
+        ingredients,
+        recipePackaging,
+        picture,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("recipe-service - updateRecipe error => ", err));
+      .catch((err) =>
+        console.log("recipe-service - updateRecipe error => ", err)
+      );
     return pr;
   }
 
@@ -65,7 +74,9 @@ class RecipeService {
     const pr = this.recipeApi
       .get(`/delete/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("recipe-service - deleteRecipe error => ", err));
+      .catch((err) =>
+        console.log("recipe-service - deleteRecipe error => ", err)
+      );
     return pr;
   }
 }

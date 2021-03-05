@@ -15,7 +15,7 @@ class OrderService {
     orderPackaging,
     recipes,
     deliveredBy,
-    cookedBy,
+    cookedBy
   ) {
     const pr = this.orderApi
       .post("/create", {
@@ -28,7 +28,9 @@ class OrderService {
         cookedBy,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("order-service - createOrder error => ", err));
+      .catch((err) =>
+        console.log("order-service - createOrder error => ", err)
+      );
     return pr;
   }
 
@@ -36,7 +38,9 @@ class OrderService {
     const pr = this.orderApi
       .get("/")
       .then((response) => response.data)
-      .catch((err) => console.log("order-service - getAllOrders error => ", err));
+      .catch((err) =>
+        console.log("order-service - getAllOrders error => ", err)
+      );
     return pr;
   }
 
@@ -44,11 +48,22 @@ class OrderService {
     const pr = this.orderApi
       .get(`/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("order-service - getOrderById error => ", err));
+      .catch((err) =>
+        console.log("order-service - getOrderById error => ", err)
+      );
     return pr;
   }
 
-  updateOrder(id) {
+  updateOrder(
+    id,
+    value,
+    stage,
+    client,
+    orderPackaging,
+    recipes,
+    deliveredBy,
+    cookedBy
+  ) {
     const pr = this.orderApi
       .post(`/update/:${id}`, {
         value,
@@ -60,7 +75,9 @@ class OrderService {
         cookedBy,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("order-service - updateOrder error => ", err));
+      .catch((err) =>
+        console.log("order-service - updateOrder error => ", err)
+      );
     return pr;
   }
 
@@ -68,7 +85,9 @@ class OrderService {
     const pr = this.orderApi
       .get(`/delete/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("order-service - deleteOrder error => ", err));
+      .catch((err) =>
+        console.log("order-service - deleteOrder error => ", err)
+      );
     return pr;
   }
 }

@@ -36,7 +36,7 @@ class BrandService {
     return pr;
   }
 
-  updateBrand(id) {
+  updateBrand(id, name) {
     const pr = this.brandApi
       .post(`/update/:${id}`, {
        name
