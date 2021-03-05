@@ -46,7 +46,7 @@ class App extends Component {
           {/*EMPLOYEE ROUTES*/}
           <AdminPrivateRoute
             exact
-            path="/dark-manager"
+            path="/dark-manager/home"
             component={AdminHome}
           />{" "}
           <AdminPrivateRoute
