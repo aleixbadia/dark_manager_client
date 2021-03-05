@@ -2,79 +2,64 @@ import axios from "axios";
 
 class IngredientService {
   constructor() {
-    this.userApi = axios.create({
-      baseURL: "http://localhost:5000/api/ingridients",
+    this.ingredientApi = axios.create({
+      baseURL: "http://localhost:5000/api/ingredients",
       withCredentials: true,
     });
   }
 
-  createUser(
-    role,
-    firstName,
-    lastName,
-    email,
-    password,
-    phone,
-    street,
-    city,
-    postCode,
-    profilePic
+  createIngredient(
+    name,
+    currentStock,
+    minimum,
+    priceKg,
   ) {
-    const pr = this.userApi
+    const pr = this.ingredientApi
       .post("/create", {
-        role,
-        firstName,
-        lastName,
-        email,
-        password,
-        phone,
-        street,
-        city,
-        postCode,
-        profilePic,
+       name,
+       currentStock,
+       minimum,
+       priceKg,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - createUser error => ", err));
+      .catch((err) => console.log("ingredient-service - createIngredient error => ", err));
     return pr;
   }
 
-  getAllUsers() {
-    const pr = this.userApi
+  getAllIngredients() {
+    const pr = this.ingredientApi
       .get("/")
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - getAllUsers error => ", err));
+      .catch((err) => console.log("ingredient-service - getAllIngredients error => ", err));
     return pr;
   }
 
-  getUserById(id) {
-    const pr = this.userApi
+  getIngredientById(id) {
+    const pr = this.ingredientApi
       .get(`/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - getUserById error => ", err));
+      .catch((err) => console.log("ingredient-service - getIngredientById error => ", err));
     return pr;
   }
 
-  updateUser(id) {
-    const pr = this.userApi
+  updateIngredient(id) {
+    const pr = this.ingredientApi
       .post(`/update/:${id}`, {
-        firstName,
-        lastName,
-        phone,
-        street,
-        city,
-        postCode,
-        profilePic,
+        name,
+        currentStock,
+        minimum,
+        priceKg,
       })
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - updateUser error => ", err));
+      .catch((err) => console.log("ingredient-service - updateIngredient error => ", err));
     return pr;
   }
 
   deleteUser(id) {
-    const pr = this.userApi
+    const pr = this.ingredientApi
       .get(`/delete/:${id}`)
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - deleteUser error => ", err));
+      .catch((err) => console.log("ingredient-service - deleteIngredient error => ", err));
     return pr;
   }
 }
