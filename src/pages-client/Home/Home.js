@@ -1,37 +1,41 @@
 import React, { Component } from "react";
-import userService from "../../services/user-service";
+import brandService from "../../services/brand-service";
+import { Link } from "react-router-dom";
 
-// userService.getAllUsers()
+// BrandService.getAllBrands()
 export class Home extends Component {
   state = {
-    users: [],
+    brands: [],
     isReady: false,
   };
 
   componentDidMount() {
-    this.loadAllUsers();
+    this.loadAllBrands();
   }
-
-  loadAllUsers = () => {
-    userService.getAllUsers().then((response) => {
+  componentWillUnmount() {
+    this.setState({ brands: [], isReady: false });
+  }
+  loadAllBrands = () => {
+    brandService.getAllBrands().then((response) => {
       console.log("response", response);
-      if(response) this.setState({ users: response, isReady: true });
+      if (response) this.setState({ brands: response, isReady: true });
     });
   };
 
   render() {
-    const { users, isReady } = this.state;
+    const { brands, isReady } = this.state;
+    console.log(brands);
 
     if (!isReady) return <h2>Loading</h2>;
 
     return (
       <div>
-        <h1>Users List</h1>
-        {users.map((user) => (
-          <div key={user._id}>
-            <h2>
-              {user.name.firstName} {user.name.lastName}
-            </h2>
+        <h1>Brands List </h1>
+        {brands.map((brand) => (
+          <div key={brand._id}>
+           <Link to={`/${brand.nameUrl}`}>
+              <h2>{brand.name}</h2>
+            </Link>
           </div>
         ))}
       </div>

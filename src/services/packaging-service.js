@@ -35,7 +35,7 @@ class PackagingService {
 
   getPackagingById(id) {
     const pr = this.packagingApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("packaging-service - getPackagingById error => ", err)
@@ -45,7 +45,7 @@ class PackagingService {
 
   updatePackaging(id, name, currentStock, minimum, price) {
     const pr = this.packagingApi
-      .post(`/update/:${id}`, {
+      .post(`/update/${id}`, {
         name,
         currentStock,
         minimum,
@@ -60,7 +60,7 @@ class PackagingService {
 
   deleteUser(id) {
     const pr = this.packagingApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("packaging-service - deleteUser error => ", err)

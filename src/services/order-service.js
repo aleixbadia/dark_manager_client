@@ -46,7 +46,7 @@ class OrderService {
 
   getOrderById(id) {
     const pr = this.orderApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("order-service - getOrderById error => ", err)
@@ -65,7 +65,7 @@ class OrderService {
     cookedBy
   ) {
     const pr = this.orderApi
-      .post(`/update/:${id}`, {
+      .post(`/update/${id}`, {
         value,
         stage,
         client,
@@ -83,7 +83,7 @@ class OrderService {
 
   deleteOrder(id) {
     const pr = this.orderApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("order-service - deleteOrder error => ", err)

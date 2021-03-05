@@ -37,7 +37,7 @@ class RecipeService {
 
   getRecipeById(id) {
     const pr = this.recipeApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("recipe-service - getRecipeById error => ", err)
@@ -55,7 +55,7 @@ class RecipeService {
     picture
   ) {
     const pr = this.recipeApi
-      .post(`/update/:${id}`, {
+      .post(`/update/${id}`, {
         name,
         brandId,
         price,
@@ -72,7 +72,7 @@ class RecipeService {
 
   deleteRecipe(id) {
     const pr = this.recipeApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("recipe-service - deleteRecipe error => ", err)

@@ -35,7 +35,7 @@ class IngredientService {
 
   getIngredientById(id) {
     const pr = this.ingredientApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("ingredient-service - getIngredientById error => ", err)
@@ -45,7 +45,7 @@ class IngredientService {
 
   updateIngredient(id, name, currentStock, minimum, priceKg) {
     const pr = this.ingredientApi
-      .post(`/update/:${id}`, {
+      .post(`/update/${id}`, {
         name,
         currentStock,
         minimum,
@@ -60,7 +60,7 @@ class IngredientService {
 
   deleteUser(id) {
     const pr = this.ingredientApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) =>
         console.log("ingredient-service - deleteIngredient error => ", err)

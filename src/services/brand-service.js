@@ -9,11 +9,13 @@ class BrandService {
   }
 
   createBrand(
-    name
+    name,
+    nameUrl
   ) {
     const pr = this.brandApi
       .post("/create", {
-       name
+       name,
+       nameUrl
       })
       .then((response) => response.data)
       .catch((err) => console.log("brand-service - createBrand error => ", err));
@@ -30,16 +32,17 @@ class BrandService {
 
   getBrandById(id) {
     const pr = this.brandApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) => console.log("brand-service - getBrandById error => ", err));
     return pr;
   }
 
-  updateBrand(id, name) {
+  updateBrand(id, name, nameUrl) {
     const pr = this.brandApi
-      .post(`/update/:${id}`, {
-       name
+      .post(`/update/${id}`, {
+       name,
+       nameUrl,
       })
       .then((response) => response.data)
       .catch((err) => console.log("brand-service - updateBrand error => ", err));
@@ -48,9 +51,17 @@ class BrandService {
 
   deleteBrand(id) {
     const pr = this.brandApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) => console.log("brand-service - deleteBrand error => ", err));
+    return pr;
+  }
+
+  getBrandByNameUrl(nameUrl) {
+    const pr = this.brandApi
+      .get(`/name/${nameUrl}`)
+      .then((response) => response.data)
+      .catch((err) => console.log("brand-service - getBrandByNameUrl error => ", err));
     return pr;
   }
 }

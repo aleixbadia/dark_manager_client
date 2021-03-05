@@ -48,7 +48,7 @@ class UserService {
 
   getUserById(id) {
     const pr = this.userApi
-      .get(`/:${id}`)
+      .get(`/${id}`)
       .then((response) => response.data)
       .catch((err) => console.log("user-service - getUserById error => ", err));
     return pr;
@@ -65,7 +65,7 @@ class UserService {
     profilePic
   ) {
     const pr = this.userApi
-      .post(`/update/:${id}`, {
+      .post(`/update/${id}`, {
         firstName,
         lastName,
         phone,
@@ -81,7 +81,7 @@ class UserService {
 
   deleteUser(id) {
     const pr = this.userApi
-      .get(`/delete/:${id}`)
+      .get(`/delete/${id}`)
       .then((response) => response.data)
       .catch((err) => console.log("user-service - deleteUser error => ", err));
     return pr;

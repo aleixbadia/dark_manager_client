@@ -42,11 +42,11 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <ClientPrivateRoute exact path="/checkout" component={Checkout} />
           <ClientPrivateRoute exact path="/profile/:userId" component={Profile} />
-          <Route exact path="/:brandName" component={Brand} />
+          <Route exact path="/:nameUrl" component={Brand} />
           {/*EMPLOYEE ROUTES*/}
           <AdminPrivateRoute
             exact
-            path="/dark-manager"
+            path="/dark-manager/home"
             component={AdminHome}
           />{" "}
           <AdminPrivateRoute
