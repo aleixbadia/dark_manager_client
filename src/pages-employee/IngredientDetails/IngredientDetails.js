@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { withAuth } from './../../context/auth-context';
+import { withAuth } from '../../context/auth-context';
 
-class IngridientDetails extends Component {
+class IngredientDetails extends Component {
   render() {
     return (
       <div>
-        <h1>IngridientDetails Route</h1>
+        <h1>IngredientDetails Route</h1>
         <h2>Welcome {this.props.user && this.props.user.username}</h2>
         {/* 
         <h2>Welcome {this.props.user ? this.props.user.username : null }</h2> 
@@ -17,4 +17,4 @@ class IngridientDetails extends Component {
 }
 
 
-export default withAuth(IngridientDetails);
+export default withAuth(IngredientDetails);

@@ -19,7 +19,7 @@ import Create from "./pages-employee/Create/Create";
 import OrderDetails from "./pages-employee/OrderDetails/OrderDetails";
 import UserDetails from "./pages-employee/UserDetails/UserDetails";
 import RecipeDetails from "./pages-employee/RecipeDetails/RecipeDetails";
-import IngridientDetails from "./pages-employee/IngridientDetails/IngridientDetails";
+import IngredientDetails from "./pages-employee/IngredientDetails/IngredientDetails";
 import PackagingDetails from "./pages-employee/PackagingDetails/PackagingDetails";
 import BrandDetails from "./pages-employee/BrandDetails/BrandDetails";
 
@@ -40,9 +40,9 @@ class App extends Component {
           <AnonRoute exact path="/login" component={Login} />
           <AnonRoute exact path="/signup" component={Signup} />
           <Route exact path="/" component={Home} />
-          <Route exact path="/:brandName" component={Brand} />
-          <ClientPrivateRoute exact path="/:userId" component={Profile} />
           <ClientPrivateRoute exact path="/checkout" component={Checkout} />
+          <ClientPrivateRoute exact path="/profile/:userId" component={Profile} />
+          <Route exact path="/:brandName" component={Brand} />
           {/*EMPLOYEE ROUTES*/}
           <AdminPrivateRoute
             exact
@@ -86,8 +86,8 @@ class App extends Component {
           />
           <AdminPrivateRoute
             exact
-            path="/dark-manager/ingridient/:id"
-            component={IngridientDetails}
+            path="/dark-manager/ingredient/:id"
+            component={IngredientDetails}
           />
           <AdminPrivateRoute
             exact
