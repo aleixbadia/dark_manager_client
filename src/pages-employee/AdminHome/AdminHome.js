@@ -11,11 +11,11 @@ export class AdminHome extends Component {
     const { services } = this.state;
 
     return (
-      <div className="service">
+      <div className="services">
         {services.map((service) => (
-          <div className="title" key={service}>
+          <div key={service} className="title">
             <Link className="title-link" to={`/dark-manager/${service}`}>
-              <h2>{service.toUpperCase()}</h2>
+              <h2 className="title-text">{service.toUpperCase()}</h2>
             </Link>
           </div>
         ))}

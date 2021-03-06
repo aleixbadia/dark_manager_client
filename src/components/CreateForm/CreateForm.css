@@ -1,0 +1,17 @@
+.form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container{
+  margin-top: 30px;
+}
+
+.radio {
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+}
