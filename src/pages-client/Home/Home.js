@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import brandService from "../../services/brand-service";
 import { Link } from "react-router-dom";
+import "./Home.css";
 
 // BrandService.getAllBrands()
 export class Home extends Component {
@@ -31,13 +32,16 @@ export class Home extends Component {
     return (
       <div>
         <h1>Brands List </h1>
+        <div className= 'wrapper'>
         {brands.map((brand) => (
-          <div key={brand._id}>
+          <div key={brand._id}  className = 'brand-card'>
            <Link to={`/${brand.nameUrl}`}>
               <h2>{brand.name}</h2>
+              <img className='logos' src={brand.brandPic} alt='brandPic'/>
             </Link>
           </div>
         ))}
+        </div>
       </div>
     );
   }

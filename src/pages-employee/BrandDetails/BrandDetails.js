@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withAuth } from '../../context/auth-context';
+
 
 class BrandDetails extends Component {
   render() {
@@ -17,4 +17,4 @@ class BrandDetails extends Component {
 }
 
 
-export default withAuth(BrandDetails);
+export default BrandDetails;

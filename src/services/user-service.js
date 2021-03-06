@@ -86,7 +86,21 @@ class UserService {
       .catch((err) => console.log("user-service - deleteUser error => ", err));
     return pr;
   }
-}
+
+   // POST   /currentCart/add
+  updateCart(currentCart) {
+    const pr = this.userApi
+      .post(`/add`, {
+     currentCart
+      })
+      .then((response) => response.data)
+      .catch((err) => console.log("user-service - updateUser error => ", err));
+    return pr;
+  }
+  
+
+  }
+
 
 const userService = new UserService();
 

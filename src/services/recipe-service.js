@@ -79,6 +79,17 @@ class RecipeService {
       );
     return pr;
   }
+
+  getRecipeByBrandId(brandId) {
+    console.log('brandId', brandId)
+    const pr = this.recipeApi
+      .get(`/brandId/${brandId}`)
+      .then((response) => response.data)
+      .catch((err) =>
+        console.log("recipe-service - getRecipeByBrandId error => ", err)
+      );
+    return pr;
+  }
 }
 
 const recipeService = new RecipeService();
