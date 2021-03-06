@@ -24,7 +24,7 @@ class Login extends Component {
     const { username, password } = this.state;
 
     return (
-      <div>
+      <div className="flex">
         <form className="login-form" onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
           <input
