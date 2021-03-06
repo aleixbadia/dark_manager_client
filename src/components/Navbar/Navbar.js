@@ -21,7 +21,7 @@ class Navbar extends Component {
             {isAdmin ? (
               <>
                 <Link
-                  to={"/dark-manager"}
+                  to={"/dark-manager/home"}
                   id="dark-manager-btn"
                   className="nav-link"
                 >

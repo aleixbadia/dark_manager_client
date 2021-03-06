@@ -12,19 +12,15 @@ export class Home extends Component {
   componentDidMount() {
     this.loadAllBrands();
   }
-  componentWillUnmount() {
-    this.setState({ brands: [], isReady: false });
-  }
+
   loadAllBrands = () => {
     brandService.getAllBrands().then((response) => {
-      console.log("response", response);
       if (response) this.setState({ brands: response, isReady: true });
     });
   };
 
   render() {
     const { brands, isReady } = this.state;
-    console.log(brands);
 
     if (!isReady) return <h2>Loading</h2>;
 
