@@ -21,16 +21,28 @@ html, body {
 .logos {
     width: 150px;
 }
+.main {
+  display: flex;
+ 
+  }
+  .brands {
+    width: 40%;
+   
+  }
 .brand-card {
-    width: 25%;
+    width: 100%;
     height: auto;
-    border: 1px solid blue;
+    border: 1px solid  rgb(133, 191, 196);
     border-radius: 10%;
     display:flex;
     justify-content: space-around;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
+    margin: 30px;
 
 }
 .recipe-card {
-    width: 20%;
-    border: 1px solid red;
+    width: 40%;
+    padding: 0 30px;
+    border-radius: 10%;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
 }

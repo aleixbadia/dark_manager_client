@@ -87,11 +87,12 @@ class UserService {
     return pr;
   }
 
+
    // POST   /currentCart/add
-  updateCart(currentCart) {
+  updateCart(quantity, recipeId) {
     const pr = this.userApi
       .post(`/add`, {
-     currentCart
+     quantity, recipeId
       })
       .then((response) => response.data)
       .catch((err) => console.log("user-service - updateUser error => ", err));
