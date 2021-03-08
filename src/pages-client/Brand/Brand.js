@@ -11,7 +11,7 @@ class Brand extends Component {
     cart: []
   };
 
-  loadBrand = () => {
+  loadBrandAndRecipes = () => {
     const nameUrl = this.props.match.params.nameUrl;
     brandService.getBrandByNameUrl(nameUrl).then((brand) => {
       recipeService.getRecipeByBrandId(brand._id).then((recipes) => {

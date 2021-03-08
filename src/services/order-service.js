@@ -8,24 +8,12 @@ class OrderService {
     });
   }
 
-  createOrder(
-    value,
-    stage,
-    client,
-    orderPackaging,
-    recipes,
-    deliveredBy,
-    cookedBy
-  ) {
+  createOrder(client, orderPackaging, cart) {
     const pr = this.orderApi
       .post("/create", {
-        value,
-        stage,
         client,
         orderPackaging,
-        recipes,
-        deliveredBy,
-        cookedBy,
+        cart,
       })
       .then((response) => response.data)
       .catch((err) =>
