@@ -61,7 +61,7 @@ if(data.quantity === 0){
   };
 
   componentDidMount() {
-    this.loadBrand();
+    this.loadBrandAndRecipes();
     this.loadCurrentUser();
   }
   // componentDidUpdate (){
