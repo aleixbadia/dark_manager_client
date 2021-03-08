@@ -19,7 +19,7 @@ html, body {
   max-width: 100%;
 }
 .logos {
-    width: 150px;
+    width: 70px;
 }
 .main {
   display: flex;
@@ -41,7 +41,7 @@ html, body {
 
 }
 .recipe-card {
-    width: 40%;
+    width: 30%;
     padding: 0 30px;
     border-radius: 10%;
     box-shadow: 5px 5px  rgb(133, 191, 196);

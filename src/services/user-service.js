@@ -88,14 +88,24 @@ class UserService {
   }
 
 
-   // POST   /currentCart/add
-  updateCart(quantity, recipeId) {
+   
+  addToCart(quantity, recipeId) {
     const pr = this.userApi
-      .post(`/add`, {
+      .post(`/addToCart`, {
      quantity, recipeId
       })
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - updateUser error => ", err));
+      .catch((err) => console.log("user-service - addToCart error => ", err));
+    return pr;
+  }
+
+  deleteFromCart(quantity, recipeId) {
+    const pr = this.userApi
+      .post(`/deleteFromCart`, {
+     quantity, recipeId
+      })
+      .then((response) => response.data)
+      .catch((err) => console.log("user-service - deleteFromCart error => ", err));
     return pr;
   }
   

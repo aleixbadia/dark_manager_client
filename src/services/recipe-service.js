@@ -81,7 +81,7 @@ class RecipeService {
   }
 
   getRecipeByBrandId(brandId) {
-    console.log('brandId', brandId)
+   
     const pr = this.recipeApi
       .get(`/brandId/${brandId}`)
       .then((response) => response.data)

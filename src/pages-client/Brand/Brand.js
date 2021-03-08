@@ -8,7 +8,7 @@ class Brand extends Component {
   state = {
     brand: {},
     recipes: [],
-    cart: [],
+    cart: []
   };
 
   loadBrand = () => {
@@ -20,44 +20,61 @@ class Brand extends Component {
     });
   };
 
-  //en updateCart se mete recipeID
-  handleClick = (recipe) => {
-    const id = recipe._id;
-    userService.updateCart(1, id).then((response) => {
-      this.setState({ cart: response.currentCart });
-      console.log("carttt", this.state.cart);
+  loadCurrentUser = () => {
+    //obtener user by id, cargar su currentCart en state.cart
+    const id = this.props.user._id;
+    userService.getUserById(id).then((user) => {
+      this.setState({ cart: user.currentCart });
     });
-
-    //this.props.user.currentCart.push(recipe._id)
-    console.log("usercurrentcartttt", this.props.user.currentCart);
   };
 
-  loadCartRecipes = () => {
-    const id = this.props.user.currentCart[0].recipeId;
-    recipeService.getRecipeById(id).then((recipe) => {
-      this.setState({ cart: recipe });
-    });
+  //en addToCart se mete recipeID
+  handleClick = (recipe) => {
+    const id = recipe._id;
+    const copyCart = [...this.state.cart];
+    //recipe._id
+   // copyCart.recipeId._id
+
+   
+ 
+    userService.addToCart(1, id)
+  };
+
+  handleDeleteClick = (cartObj) => {
+    const id = cartObj.recipeId._id;
+    const copyCart = [...this.state.cart];
+
+    copyCart.find(data => {      
+      if(data._id === cartObj._id){
+        data.quantity--;
+    this.setState({ cart: copyCart });
+if(data.quantity === 0){
+  const filteredCart = copyCart.filter(data => data.recipeId._id !== cartObj.recipeId._id);
+  this.setState({ cart: filteredCart });
+}
+      } 
+    })
+
+
+    userService.deleteFromCart(1, id)
+    
   };
 
   componentDidMount() {
     this.loadBrand();
-    this.loadCartRecipes();
+    this.loadCurrentUser();
   }
+  // componentDidUpdate (){
+  //   this.loadBrand();
+  //   this.loadCurrentUser();
+  // }
 
   render() {
+    console.log("cart", this.state.cart);
+
     const { user } = this.props;
 
-    // console.log("user.currentCart", user.currentCart);
-    // console.log('user.currentCart[0].recipeId', user.currentCart[0].recipeId )
-    // console.log('this.state.cart.name', this.state.cart.name)
-    // console.log('this.state.cart.picture', this.state.cart.picture)
-
     const { brand, recipes, cart } = this.state;
-
-    console.log("this.state.cart", this.state.cart);
-    console.log("this.props.user.currentCart", this.props.user.currentCart);
-    console.log("cart.name", cart.name);
-    console.log("cart", cart);
 
     return (
       <div className="main" key={brand._id}>
@@ -84,23 +101,28 @@ class Brand extends Component {
         </div>
         <div>
           <h2>user cart </h2>
-          <div className="recipe-card">
-            <h3>aqui va el carroo --</h3>
-
-            
-            {cart.map((element) => (
-              <div key={element._id}>
+          <div>
+            {cart.map((cartObj) => (
+              <div key={cartObj.recipeId._id}>
                 <div className="recipe-card">
-                  <h2>{element.name}</h2>
-                  <img className="logos" src={element.picture} alt="recipe" />
-               </div>
+                  <h2>{cartObj.recipeId.name}</h2>
+                  <img
+                    className="logos"
+                    src={cartObj.recipeId.picture}
+                    alt="recipe"
+                  />
+                  <button
+                    onClick={() => {
+                      this.handleDeleteClick(cartObj);
+                    }}
+                  >
+                    Remove from cart
+                  </button>
+                </div>
               </div>
             ))}
-            
-            {cart.name}
-
-            <img className="logos" src={cart.picture} alt="recipe pic" />
           </div>
+          <button>Proceed to checkout</button>
         </div>
       </div>
     );
