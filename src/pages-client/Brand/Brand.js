@@ -8,7 +8,7 @@ class Brand extends Component {
   state = {
     brand: {},
     recipes: [],
-    cart: []
+    cart: [],
   };
 
   loadBrandAndRecipes = () => {
@@ -29,52 +29,28 @@ class Brand extends Component {
   };
 
   //en addToCart se mete recipeID
-  handleClick = (recipe) => {
-    const id = recipe._id;
-    const copyCart = [...this.state.cart];
-    //recipe._id
-   // copyCart.recipeId._id
-
-   
- 
-    userService.addToCart(1, id)
+  handleAddClick = async (recipeId) => {
+    await userService.addToCart(recipeId);
+    this.loadCurrentUser();
+    
   };
 
-  handleDeleteClick = (cartObj) => {
-    const id = cartObj.recipeId._id;
-    const copyCart = [...this.state.cart];
-
-    copyCart.find(data => {      
-      if(data._id === cartObj._id){
-        data.quantity--;
-    this.setState({ cart: copyCart });
-if(data.quantity === 0){
-  const filteredCart = copyCart.filter(data => data.recipeId._id !== cartObj.recipeId._id);
-  this.setState({ cart: filteredCart });
-}
-      } 
-    })
-
-
-    userService.deleteFromCart(1, id)
-    
+  handleDeleteClick = async (recipeId) => {
+    await userService.deleteFromCart(recipeId);
+    this.loadCurrentUser();
   };
 
   componentDidMount() {
     this.loadBrandAndRecipes();
     this.loadCurrentUser();
   }
-  // componentDidUpdate (){
-  //   this.loadBrand();
-  //   this.loadCurrentUser();
-  // }
 
   render() {
     console.log("cart", this.state.cart);
 
-    const { user } = this.props;
-
     const { brand, recipes, cart } = this.state;
+    console.log(cart);
+    
 
     return (
       <div className="main" key={brand._id}>
@@ -90,7 +66,7 @@ if(data.quantity === 0){
                 <img className="logos" src={recipe.picture} alt="recipe" />
                 <button
                   onClick={() => {
-                    this.handleClick(recipe);
+                    this.handleAddClick(recipe._id);
                   }}
                 >
                   Add to cart
@@ -100,12 +76,12 @@ if(data.quantity === 0){
           ))}
         </div>
         <div>
-          <h2>user cart </h2>
+          <h2>User cart </h2>
           <div>
             {cart.map((cartObj) => (
               <div key={cartObj.recipeId._id}>
                 <div className="recipe-card">
-                  <h2>{cartObj.recipeId.name}</h2>
+                  <h2>{cartObj.recipeId.name} - {cartObj.quantity}</h2>
                   <img
                     className="logos"
                     src={cartObj.recipeId.picture}
@@ -113,7 +89,7 @@ if(data.quantity === 0){
                   />
                   <button
                     onClick={() => {
-                      this.handleDeleteClick(cartObj);
+                      this.handleDeleteClick(cartObj.recipeId._id);
                     }}
                   >
                     Remove from cart

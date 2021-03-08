@@ -87,31 +87,24 @@ class UserService {
     return pr;
   }
 
-
-   
-  addToCart(quantity, recipeId) {
+  addToCart(recipeId) {
     const pr = this.userApi
-      .post(`/addToCart`, {
-     quantity, recipeId
-      })
+      .post(`/addToCart`, { recipeId })
       .then((response) => response.data)
       .catch((err) => console.log("user-service - addToCart error => ", err));
     return pr;
   }
 
-  deleteFromCart(quantity, recipeId) {
+  deleteFromCart(recipeId) {
     const pr = this.userApi
-      .post(`/deleteFromCart`, {
-     quantity, recipeId
-      })
+      .post(`/deleteFromCart`, { recipeId })
       .then((response) => response.data)
-      .catch((err) => console.log("user-service - deleteFromCart error => ", err));
+      .catch((err) =>
+        console.log("user-service - deleteFromCart error => ", err)
+      );
     return pr;
   }
-  
-
-  }
-
+}
 
 const userService = new UserService();
 
