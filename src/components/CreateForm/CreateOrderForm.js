@@ -1,30 +1,25 @@
 import React, { Component } from "react";
 import orderService from "../../services/order-service";
 import recipeService from "../../services/recipe-service";
-import packagingService from "../../services/packaging-service";
 import userService from "../../services/user-service";
 import "./CreateForm.css";
 
 class CreateOrderForm extends Component {
   state = {
-    client: "",
+    clientId: "",
     cart: [],
     orderPackaging: [],
     allUsers: [],
     allRecipes: [],
-    allPackagings: [],
   };
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    let { client, cart, orderPackaging } = this.state;
+    let { clientId, cart } = this.state;
 
     cart = cart.filter((ingredient) => ingredient.quantity > 0);
-    orderPackaging = orderPackaging.filter(
-      (packaging) => packaging.quantity > 0
-    );
 
-    orderService.createOrder(client, cart, orderPackaging);
+    orderService.createOrder(clientId, cart);
   };
 
   handleChange = (event) => {
@@ -34,27 +29,13 @@ class CreateOrderForm extends Component {
 
   handleArrChange = (event) => {
     const { name, value, id } = event.target;
-
-    if (name === "cart") {
-      let newCart = this.state.cart;
-      newCart.forEach((cartObj, index) => {
-        if (cartObj.recipeId === id) {
-          newCart[index].quantity = value;
-        }
-      });
-      this.setState({ [name]: newCart });
-    } else if (name === "orderPackaging") {
-      let newPackagings = this.state.orderPackaging;
-      newPackagings.forEach((packagingObj, index) => {
-        if (packagingObj.packagingId === id) {
-          newPackagings[index].quantity = value;
-        }
-      });
-      this.setState({ [name]: newPackagings });
-    }
-
-    console.log(this.state);
-    
+    let newCart = this.state.cart;
+    newCart.forEach((cartObj, index) => {
+      if (cartObj.recipeId === id) {
+        newCart[index].quantity = value;
+      }
+    });
+    this.setState({ [name]: newCart });
   };
 
   loadAllUsers = () => {
@@ -79,35 +60,16 @@ class CreateOrderForm extends Component {
     });
   };
 
-  loadAllPackagings = () => {
-    packagingService.getAllPackagings().then((allPackagings) => {
-      if (allPackagings) {
-        let orderPackaging = [];
-        allPackagings.forEach((packaging) => {
-          orderPackaging.push({
-            packagingId: packaging._id,
-            quantity: 0,
-          });
-        });
-        this.setState({ allPackagings, orderPackaging });
-      }
-    });
-  };
-
   componentDidMount() {
     this.loadAllUsers();
     this.loadAllRecipes();
-    this.loadAllPackagings();
   }
 
   render() {
     const {
-      client,
       cart,
-      orderPackaging,
       allUsers,
       allRecipes,
-      allPackagings,
     } = this.state;
     return (
       <div className="flex">
@@ -120,7 +82,7 @@ class CreateOrderForm extends Component {
                   <input
                     type="radio"
                     id={user.name.firstName}
-                    name="client"
+                    name="clientId"
                     value={user._id}
                     onChange={this.handleChange}
                   ></input>
@@ -138,8 +100,7 @@ class CreateOrderForm extends Component {
                   <label for={cartObj.recipeId}>
                     {
                       allRecipes.find(
-                        (recipeObj) =>
-                          recipeObj._id === cartObj.recipeId
+                        (recipeObj) => recipeObj._id === cartObj.recipeId
                       ).name
                     }
                   </label>
@@ -148,29 +109,6 @@ class CreateOrderForm extends Component {
                     id={cartObj.recipeId}
                     name="cart"
                     value={cartObj.quantity}
-                    onChange={this.handleArrChange}
-                  ></input>
-                </div>
-              ))}
-            </div>
-
-            <div className="radio">
-            <label>Packagings:</label>
-              {orderPackaging.map((packaging) => (
-                <div key={packaging.packagingId}>
-                  <label for={packaging.packagingId}>
-                    {
-                      allPackagings.find(
-                        (packagingObj) =>
-                          packagingObj._id === packaging.packagingId
-                      ).name
-                    }
-                  </label>
-                  <input
-                    type="number"
-                    id={packaging.packagingId}
-                    name="orderPackaging"
-                    value={packaging.quantity}
                     onChange={this.handleArrChange}
                   ></input>
                 </div>

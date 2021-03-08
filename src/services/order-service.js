@@ -8,11 +8,10 @@ class OrderService {
     });
   }
 
-  createOrder(client, orderPackaging, cart) {
+  createOrder(clientId, cart) {
     const pr = this.orderApi
       .post("/create", {
-        client,
-        orderPackaging,
+        clientId,
         cart,
       })
       .then((response) => response.data)
@@ -46,7 +45,7 @@ class OrderService {
     id,
     value,
     stage,
-    client,
+    clientId,
     orderPackaging,
     recipes,
     deliveredBy,
@@ -56,7 +55,7 @@ class OrderService {
       .post(`/update/${id}`, {
         value,
         stage,
-        client,
+        clientId,
         orderPackaging,
         recipes,
         deliveredBy,
