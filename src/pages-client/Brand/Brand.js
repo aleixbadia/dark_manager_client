@@ -3,6 +3,8 @@ import { withAuth } from "./../../context/auth-context";
 import brandService from "../../services/brand-service";
 import recipeService from "../../services/recipe-service";
 import userService from "../../services/user-service";
+import orderService from "../../services/order-service";
+import { Link } from "react-router-dom";
 
 class Brand extends Component {
   state = {
@@ -39,6 +41,16 @@ class Brand extends Component {
     await userService.deleteFromCart(recipeId);
     this.loadCurrentUser();
   };
+
+  handleOrderClick = () => {
+    const clientId = this.props.user._id;
+    const cart = this.state.cart;
+    orderService.createOrder(clientId, cart)
+    .then((response)=>{
+      console.log('response', response)
+    })
+    
+  }
 
   componentDidMount() {
     this.loadBrandAndRecipes();
@@ -98,7 +110,12 @@ class Brand extends Component {
               </div>
             ))}
           </div>
-          <button>Proceed to checkout</button>
+          <button onClick={() => {this.handleOrderClick()}}>Proceed to checkout</button>
+          <Link to={`/checkout`}>
+
+              <h2>Remove from cart link</h2>
+             
+            </Link>
         </div>
       </div>
     );
