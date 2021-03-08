@@ -11,7 +11,7 @@ class Brand extends Component {
     cart: [],
   };
 
-  loadBrand = () => {
+  loadBrandAndRecipes = () => {
     const nameUrl = this.props.match.params.nameUrl;
     brandService.getBrandByNameUrl(nameUrl).then((brand) => {
       recipeService.getRecipeByBrandId(brand._id).then((recipes) => {
@@ -20,6 +20,13 @@ class Brand extends Component {
     });
   };
 
+  loadCartRecipes = () => {
+    const id = this.props.user.currentCart[0].recipeId;
+    recipeService.getRecipeById(id).then((recipe) => {
+      this.setState({ cart: recipe });
+    });
+  };
+  
   //en updateCart se mete recipeID
   handleClick = (recipe) => {
     const id = recipe._id;
@@ -32,15 +39,9 @@ class Brand extends Component {
     console.log("usercurrentcartttt", this.props.user.currentCart);
   };
 
-  loadCartRecipes = () => {
-    const id = this.props.user.currentCart[0].recipeId;
-    recipeService.getRecipeById(id).then((recipe) => {
-      this.setState({ cart: recipe });
-    });
-  };
 
   componentDidMount() {
-    this.loadBrand();
+    this.loadBrandAndRecipes();
     this.loadCartRecipes();
   }
 

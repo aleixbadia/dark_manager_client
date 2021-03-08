@@ -20,7 +20,7 @@ class CreateRecipeForm extends Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    const {
+    let {
       name,
       brandId,
       price,
@@ -29,15 +29,10 @@ class CreateRecipeForm extends Component {
       picture,
     } = this.state;
 
-    let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
-
-    for (let i = 0; i < checkboxes.length; i++) {
-      if (checkboxes[i].className === "ingredient-class") {
-        ingredients.push(checkboxes[i].value);
-      } else if (checkboxes[i].className === "packaging-class") {
-        recipePackaging.push(checkboxes[i].value);
-      }
-    }
+    ingredients = ingredients.filter((ingredient) => ingredient.quantity > 0);
+    recipePackaging = recipePackaging.filter(
+      (packaging) => packaging.quantity > 0
+    );
 
     recipeService.createRecipe(
       name,
@@ -52,8 +47,6 @@ class CreateRecipeForm extends Component {
       name: "",
       brandId: "",
       price: 0,
-      ingredients: [],
-      recipePackaging: [],
       picture: "",
     });
   };
@@ -63,6 +56,28 @@ class CreateRecipeForm extends Component {
     this.setState({ [name]: value });
   };
 
+  handleArrChange = (event) => {
+    const { name, value, id } = event.target;
+
+    if (name === "ingredients") {
+      let newIngredients = this.state.ingredients;
+      newIngredients.forEach((ingredientObj, index) => {
+        if (ingredientObj.ingredientId === id) {
+          newIngredients[index].quantity = value;
+        }
+      });
+      this.setState({ [name]: newIngredients });
+    } else if (name === "recipePackaging") {
+      let newPackagings = this.state.recipePackaging;
+      newPackagings.forEach((packagingObj, index) => {
+        if (packagingObj.packagingId === id) {
+          newPackagings[index].quantity = value;
+        }
+      });
+      this.setState({ [name]: newPackagings });
+    }
+  };
+
   loadAllBrands = () => {
     brandService.getAllBrands().then((brands) => {
       if (brands) this.setState({ allBrands: brands });
@@ -70,14 +85,32 @@ class CreateRecipeForm extends Component {
   };
 
   loadAllIngredients = () => {
-    ingredientService.getAllIngredients().then((ingredients) => {
-      if (ingredients) this.setState({ allIngredients: ingredients });
+    ingredientService.getAllIngredients().then((allIngredients) => {
+      if (allIngredients) {
+        let ingredients = [];
+        allIngredients.forEach((ingredient) => {
+          ingredients.push({
+            ingredientId: ingredient._id,
+            quantity: 0,
+          });
+        });
+        this.setState({ allIngredients, ingredients });
+      }
     });
   };
 
   loadAllPackagings = () => {
-    packagingService.getAllPackagings().then((packagings) => {
-      if (packagings) this.setState({ allPackagings: packagings });
+    packagingService.getAllPackagings().then((allPackagings) => {
+      if (allPackagings) {
+        let recipePackaging = [];
+        allPackagings.forEach((packaging) => {
+          recipePackaging.push({
+            packagingId: packaging._id,
+            quantity: 0,
+          });
+        });
+        this.setState({ allPackagings, recipePackaging });
+      }
     });
   };
 
@@ -92,6 +125,8 @@ class CreateRecipeForm extends Component {
       name,
       price,
       picture,
+      ingredients,
+      recipePackaging,
       allBrands,
       allIngredients,
       allPackagings,
@@ -122,55 +157,69 @@ class CreateRecipeForm extends Component {
             value={price}
             onChange={this.handleChange}
           />
+          <div className="checkboxes-list">
+            <div className="radio">
+              <label>Brands:</label>
+              {allBrands.map((brand) => (
+                <div key={brand._id}>
+                  <input
+                    type="radio"
+                    id={brand.name}
+                    name="brandId"
+                    value={brand._id}
+                    onChange={this.handleChange}
+                  ></input>
+                  <label for={brand.name}>{brand.name}</label>
+                </div>
+              ))}
+            </div>
 
-          <label>Brands:</label>
-          <div className="radio">
-            {allBrands.map((brand) => (
-              <div key={brand._id}>
-                <input
-                  type="radio"
-                  id={brand.name}
-                  name="brandId"
-                  value={brand._id}
-                  onChange={this.handleChange}
-                ></input>
-                <label for={brand.name}>{brand.name}</label>
-              </div>
-            ))}
+            <div className="radio">
+              <label>Ingredients:</label>
+              {ingredients.map((ingredient) => (
+                <div key={ingredient.ingredientId}>
+                  <label for={ingredient.ingredientId}>
+                    {
+                      allIngredients.find(
+                        (ingredientObj) =>
+                          ingredientObj._id === ingredient.ingredientId
+                      ).name
+                    }
+                  </label>
+                  <input
+                    type="number"
+                    id={ingredient.ingredientId}
+                    name="ingredients"
+                    value={ingredient.quantity}
+                    onChange={this.handleArrChange}
+                  ></input>
+                </div>
+              ))}
+            </div>
+
+            <div className="radio">
+              <label>Packagings:</label>
+              {recipePackaging.map((packaging) => (
+                <div key={packaging.packagingId}>
+                  <label for={packaging.packagingId}>
+                    {
+                      allPackagings.find(
+                        (packagingObj) =>
+                          packagingObj._id === packaging.packagingId
+                      ).name
+                    }
+                  </label>
+                  <input
+                    type="number"
+                    id={packaging.packagingId}
+                    name="recipePackaging"
+                    value={packaging.quantity}
+                    onChange={this.handleArrChange}
+                  ></input>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <label>Ingredients:</label>
-          <div className="radio">
-            {allIngredients.map((ingredient) => (
-              <div key={ingredient._id}>
-                <input
-                  type="checkbox"
-                  id={ingredient.name}
-                  name="ingredients"
-                  value={ingredient._id}
-                  className="ingredient-class"
-                ></input>
-                <label for={ingredient.name}>{ingredient.name}</label>
-              </div>
-            ))}
-          </div>
-
-          <label>Packaging:</label>
-          <div className="radio">
-            {allPackagings.map((packaging) => (
-              <div key={packaging._id}>
-                <input
-                  type="checkbox"
-                  id={packaging.name}
-                  name="recipePackaging"
-                  value={packaging._id}
-                  className="packaging-class"
-                ></input>
-                <label for={packaging.name}>{packaging.name}</label>
-              </div>
-            ))}
-          </div>
-
           <input type="submit" value="Create recipe" />
         </form>
       </div>

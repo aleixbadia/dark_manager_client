@@ -14,4 +14,10 @@
   display: flex;
   flex-direction: column;
   justify-content:flex-start;
+  width: 200px;
+}
+
+.checkboxes-list {
+  display: flex;
+  justify-content:flex-start;
 }
