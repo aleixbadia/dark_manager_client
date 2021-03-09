@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { withAuth } from './../../context/auth-context';
+import { withAuth } from "./../../context/auth-context";
 import userService from "../../services/user-service";
-import orderService from "../../services/order-service";
+import { Link } from "react-router-dom";
+
 
 class Checkout extends Component {
   state = {
     user: {},
-    
   };
 
   loadCurrentUser = () => {
@@ -18,28 +18,23 @@ class Checkout extends Component {
   };
 
   componentDidMount() {
-  
     this.loadCurrentUser();
   }
 
-
   render() {
-    console.log('first name', this.props.user._id)
+    console.log("first name", this.props.user._id);
     return (
       <div>
-        <h1>Checkout Route</h1>
-        <h2>your order has been processed</h2>
-        <h2>hello {this.state.user.firstName}</h2>
-        <h2>Welcome {this.props.user.name.firstName && this.props.user.username}</h2>
-        
-        {/* 
-        <h2>Welcome {this.props.user ? this.props.user.username : null }</h2> 
-        */}
-
+        <div className= 'checkout'>
+          <h1>Thank you!</h1>
+          <h2>your order has been processed</h2>
+          <Link to={`/`}>
+            <h2>Return to main page</h2>
+          </Link>
+        </div>
       </div>
     );
   }
 }
-
 
 export default withAuth(Checkout);

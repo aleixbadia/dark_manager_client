@@ -28,12 +28,12 @@ export class Home extends Component {
 
     return (
       <div>
-        <h1>Brands List </h1>
+        <h1>What would you like to eat today?</h1>
         <div className= 'wrapper'>
         {brands.map((brand) => (
           <div key={brand._id}  className = 'brand-card'>
            <Link to={`/${brand.nameUrl}`}>
-              <h2>{brand.name}</h2>
+              
               <img className='logos' src={brand.brandPic} alt='brandPic'/>
             </Link>
           </div>

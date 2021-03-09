@@ -14,9 +14,14 @@ class Brand extends Component {
   };
 
   loadBrandAndRecipes = () => {
+    console.log("loading brand and recipes_______");
     const nameUrl = this.props.match.params.nameUrl;
+
     brandService.getBrandByNameUrl(nameUrl).then((brand) => {
       recipeService.getRecipeByBrandId(brand._id).then((recipes) => {
+        console.log("estamos dentro del recipeService.getRecipeByBrandId");
+        console.log("recipes", recipes);
+
         this.setState({ recipes: recipes, brand: brand });
       });
     });
@@ -34,7 +39,6 @@ class Brand extends Component {
   handleAddClick = async (recipeId) => {
     await userService.addToCart(recipeId);
     this.loadCurrentUser();
-    
   };
 
   handleDeleteClick = async (recipeId) => {
@@ -45,24 +49,26 @@ class Brand extends Component {
   handleOrderClick = () => {
     const clientId = this.props.user._id;
     const cart = this.state.cart;
-    orderService.createOrder(clientId, cart)
-    .then((response)=>{
-      console.log('response', response)
-    })
-    
-  }
+
+    if (cart.length > 0) {
+      orderService.createOrder(clientId, cart).then(() => {
+        this.loadCurrentUser();
+      });
+    }
+  };
 
   componentDidMount() {
     this.loadBrandAndRecipes();
-    this.loadCurrentUser();
+
+    if (this.props.user) {
+      this.loadCurrentUser();
+    }
   }
 
   render() {
-    console.log("cart", this.state.cart);
+    console.log("this.sstate", this.state);
 
     const { brand, recipes, cart } = this.state;
-    console.log(cart);
-    
 
     return (
       <div className="main" key={brand._id}>
@@ -71,21 +77,50 @@ class Brand extends Component {
           <h2>Welcome to {brand.name}</h2>
 
           <h2>Menu</h2>
-          {recipes.map((recipe) => (
+
+
+
+          {
+            this.props.user ?(<div>
+
+            {recipes.map((recipe) => (
             <div key={recipe._id}>
               <div className="recipe-card">
                 <h2>{recipe.name}</h2>
-                <img className="logos" src={recipe.picture} alt="recipe" />
                 <button
                   onClick={() => {
                     this.handleAddClick(recipe._id);
                   }}
                 >
-                  Add to cart
+                <img className="logos" src={recipe.picture} alt="recipe" />
+              
+                  
                 </button>
               </div>
             </div>
           ))}
+          </div>) : (<div>
+            {recipes.map((recipe) => (
+            <div key={recipe._id}>
+              <div className="recipe-card">
+              <Link to={`/login`}>
+                <h2>{recipe.name}</h2>
+                <img className="logos" src={recipe.picture} alt="recipe" />
+            
+                  </Link>
+             
+               </div>
+            </div>
+          ))}
+
+
+
+          </div>)
+          
+          }
+
+
+
         </div>
         <div>
           <h2>User cart </h2>
@@ -93,7 +128,9 @@ class Brand extends Component {
             {cart.map((cartObj) => (
               <div key={cartObj.recipeId._id}>
                 <div className="recipe-card">
-                  <h2>{cartObj.recipeId.name} - {cartObj.quantity}</h2>
+                  <h2>
+                    {cartObj.recipeId.name} - {cartObj.quantity}
+                  </h2>
                   <img
                     className="logos"
                     src={cartObj.recipeId.picture}
@@ -110,12 +147,20 @@ class Brand extends Component {
               </div>
             ))}
           </div>
-          <button onClick={() => {this.handleOrderClick()}}>Proceed to checkout</button>
-          <Link to={`/checkout`}>
 
-              <h2>Remove from cart link</h2>
-             
+          {cart.length > 0 ? (
+            <Link to={`/checkout`}>
+              <button
+                onClick={() => {
+                  this.handleOrderClick();
+                }}
+              >
+                Proceed to checkout
+              </button>
             </Link>
+          ) : (
+            <> </>
+          )}
         </div>
       </div>
     );
@@ -123,3 +168,21 @@ class Brand extends Component {
 }
 
 export default withAuth(Brand);
+
+///
+
+//  {recipes.map((recipe) => (
+//   <div key={recipe._id}>
+//     <div className="recipe-card">
+//       <h2>{recipe.name}</h2>
+//       <img className="logos" src={recipe.picture} alt="recipe" />
+//       <button
+//         onClick={() => {
+//           this.handleAddClick(recipe._id);
+//         }}
+//       >
+//         Add to cart
+//       </button>
+//     </div>
+//   </div>
+// ))}
