@@ -66,7 +66,7 @@ class Brand extends Component {
   }
 
   render() {
-    console.log("this.sstate", this.state);
+    
 
     const { brand, recipes, cart } = this.state;
 

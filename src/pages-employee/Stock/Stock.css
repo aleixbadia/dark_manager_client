@@ -1,0 +1,29 @@
+table {
+    
+    width: 50%;
+    margin-left:auto;
+    margin-right:auto;
+    border: 1px solid  rgb(133, 191, 196);
+    border-radius: 10%;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
+    padding: 2em;
+    
+}
+table, td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+  .rows{
+      display:flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .red {
+      background-color: #FE2E2E
+  }
+
+  .green {
+    background-color: #00ff55
+}
