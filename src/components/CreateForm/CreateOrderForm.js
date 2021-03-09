@@ -17,8 +17,9 @@ class CreateOrderForm extends Component {
     event.preventDefault();
     let { clientId, cart } = this.state;
 
-    cart = cart.filter((ingredient) => ingredient.quantity > 0);
-
+    cart = cart.filter((cartObj) => cartObj.quantity > 0);
+    console.log(cart);
+    
     orderService.createOrder(clientId, cart);
   };
 
@@ -31,7 +32,7 @@ class CreateOrderForm extends Component {
     const { name, value, id } = event.target;
     let newCart = this.state.cart;
     newCart.forEach((cartObj, index) => {
-      if (cartObj.recipeId === id) {
+      if (cartObj.recipeId._id === id) {
         newCart[index].quantity = value;
       }
     });
@@ -48,9 +49,9 @@ class CreateOrderForm extends Component {
     recipeService.getAllRecipes().then((allRecipes) => {
       if (allRecipes) {
         let cart = [];
-        allRecipes.forEach((recipe) => {
+        allRecipes.forEach((recipe) => {          
           cart.push({
-            recipeId: recipe._id,
+            recipeId: recipe,
             quantity: 0,
           });
         });
@@ -96,17 +97,17 @@ class CreateOrderForm extends Component {
             <div className="radio">
               <label>Recipes:</label>
               {cart.map((cartObj) => (
-                <div key={cartObj.recipeId}>
-                  <label for={cartObj.recipeId}>
+                <div key={cartObj.recipeId._id}>
+                  <label for={cartObj.recipeId._id}>
                     {
                       allRecipes.find(
-                        (recipeObj) => recipeObj._id === cartObj.recipeId
+                        (recipeObj) => recipeObj._id === cartObj.recipeId._id
                       ).name
                     }
                   </label>
                   <input
                     type="number"
-                    id={cartObj.recipeId}
+                    id={cartObj.recipeId._id}
                     name="cart"
                     value={cartObj.quantity}
                     onChange={this.handleArrChange}

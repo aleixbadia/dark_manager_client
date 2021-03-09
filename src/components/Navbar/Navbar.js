@@ -13,7 +13,7 @@ class Navbar extends Component {
         <div className="flex">
           <img src={ImageTest} alt="logo" id="logo" />
           <Link to={"/"} id="home-btn">
-            <h4>RESTI-CLUSTER</h4>
+            <h4>GASTRO-EXPERIENCE</h4>
           </Link>
         </div>
         {isLoggedIn ? (

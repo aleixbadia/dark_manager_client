@@ -8,7 +8,10 @@ html, body {
   margin: 0 !important;
   padding: 0 !important;
 }
-
+h1{
+  text-align: center;
+  
+}
 .wrapper {
   display:flex;
   justify-content: space-around;
@@ -19,7 +22,7 @@ html, body {
   max-width: 100%;
 }
 .logos {
-    width: 70px;
+    width: 15em;
 }
 .main {
   display: flex;
@@ -30,14 +33,16 @@ html, body {
    
   }
 .brand-card {
-    width: 100%;
-    height: auto;
-    border: 1px solid  rgb(133, 191, 196);
-    border-radius: 10%;
-    display:flex;
-    justify-content: space-around;
-    box-shadow: 5px 5px  rgb(133, 191, 196);
-    margin: 30px;
+  border: 1px solid  rgb(133, 191, 196);
+  border-radius: 10%;
+  box-shadow: 5px 5px  rgb(133, 191, 196);
+  margin: 5rem auto;
+  width: 30%;
+  height: 20rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
 }
 .recipe-card {
@@ -45,4 +50,17 @@ html, body {
     padding: 0 30px;
     border-radius: 10%;
     box-shadow: 5px 5px  rgb(133, 191, 196);
+}
+.checkout {
+  border: 1px solid  rgb(133, 191, 196);
+  border-radius: 10%;
+  box-shadow: 5px 5px  rgb(133, 191, 196);
+  margin: 5rem auto;
+  width: 30%;
+  height: 20rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
 }
