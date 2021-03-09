@@ -78,6 +78,16 @@ class OrderService {
     return pr;
   }
 
+  updateStageOrder(id, stage, userId) {
+    const pr = this.orderApi
+      .post(`/update-stage/${id}`, { stage, userId })
+      .then((response) => response.data)
+      .catch((err) =>
+        console.log("order-service - updateStageOrder error => ", err)
+      );
+    return pr;
+  }
+
   deleteOrder(id) {
     const pr = this.orderApi
       .get(`/delete/${id}`)
