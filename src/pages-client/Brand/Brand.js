@@ -78,49 +78,45 @@ class Brand extends Component {
 
           <h2>Menu</h2>
 
-
-
-          {
-            this.props.user ?(<div>
-
-            {recipes.map((recipe) => (
-            <div key={recipe._id}>
-              <div className="recipe-card">
-                <h2>{recipe.name}</h2>
-                <button
-                  onClick={() => {
-                    this.handleAddClick(recipe._id);
-                  }}
-                >
-                <img className="logos" src={recipe.picture} alt="recipe" />
-              
-                  
-                </button>
-              </div>
+          {this.props.user ? (
+            <div>
+              {recipes.map((recipe) => (
+                <div key={recipe._id}>
+                  <div className="recipe-card">
+                    <h2>{recipe.name}</h2>
+                    <button
+                      onClick={() => {
+                        this.handleAddClick(recipe._id);
+                      }}
+                    >
+                      <img
+                        className="logos"
+                        src={recipe.picture}
+                        alt="recipe"
+                      />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-          </div>) : (<div>
-            {recipes.map((recipe) => (
-            <div key={recipe._id}>
-              <div className="recipe-card">
-              <Link to={`/login`}>
-                <h2>{recipe.name}</h2>
-                <img className="logos" src={recipe.picture} alt="recipe" />
-            
-                  </Link>
-             
-               </div>
+          ) : (
+            <div>
+              {recipes.map((recipe) => (
+                <div key={recipe._id}>
+                  <div className="recipe-card">
+                    <Link to={`/login`}>
+                      <h2>{recipe.name}</h2>
+                      <img
+                        className="logos"
+                        src={recipe.picture}
+                        alt="recipe"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-
-
-
-          </div>)
-          
-          }
-
-
-
+          )}
         </div>
         <div>
           <h2>User cart </h2>

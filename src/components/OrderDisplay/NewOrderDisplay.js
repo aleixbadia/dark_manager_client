@@ -1,29 +1,52 @@
 import React, { Component } from "react";
+import orderService from "../../services/order-service";
+import { withAuth } from "./../../context/auth-context";
 import "./OrderDisplay.css";
 
 class NewOrderDisplay extends Component {
   state = {
-    clientId: "",
-    cart: [],
-    orderPackaging: [],
-    allUsers: [],
-    allRecipes: [],
+    allOrders: [],
   };
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  handleDelete = async (event) => {
+    const { id } = event.target;
+    await orderService.deleteOrder(id);
+    let newOrders = [...this.state.allOrders].filter(
+      (order) => String(order._id) !== id
+    );
+    this.setState({ allOrders: newOrders });
   };
+
+  handleStage = async (event) => {
+    const { id, value } = event.target;
+
+    await orderService.updateStageOrder(id, value);
+    let newOrders = [...this.state.allOrders].filter(
+      (order) => String(order._id) !== id
+    );
+    this.setState({ allOrders: newOrders });
+  };
+
+  loadAllOrders = () => {
+    orderService.getAllOrdersPopulated().then((orders) => {
+      if (orders) {
+        const newOrders = orders.filter((order) => order.stage === "New");
+        this.setState({ allOrders: newOrders });
+      }
+    });
+  };
+
+  componentDidMount() {
+    this.loadAllOrders();
+  }
 
   render() {
-    const { cart, allUsers, allRecipes } = this.state;
-    const { orders } = this.props;
-    console.log(orders);
+    const { allOrders } = this.state;
 
     return (
       <div className="order-display">
         <label>New orders:</label>
-        {orders.map((order) => (
+        {allOrders.map((order) => (
           <div key={order._id}>
             <h3>
               {order.clientId.name.firstName} {order.clientId.name.lastName} -{" "}
@@ -32,12 +55,13 @@ class NewOrderDisplay extends Component {
             <p></p>
             <div className="flex">
               <button
-                name="orders"
-                onClick={this.handleChange}
+                id={order._id}
+                onClick={this.handleDelete}
               >{`<-- Delete order`}</button>
               <button
-                name="orders"
-                onClick={this.handleChange}
+                id={order._id}
+                value="Cooking"
+                onClick={this.handleStage}
               >{`Move to cooking -->`}</button>
             </div>
           </div>
@@ -47,4 +71,4 @@ class NewOrderDisplay extends Component {
   }
 }
 
-export default NewOrderDisplay;
+export default withAuth(NewOrderDisplay);
