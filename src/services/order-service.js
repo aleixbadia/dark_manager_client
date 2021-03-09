@@ -3,7 +3,7 @@ import axios from "axios";
 class OrderService {
   constructor() {
     this.orderApi = axios.create({
-      baseURL: "http://localhost:5000/api/orders",
+      baseURL: `${process.env.REACT_APP_API_URL}/api/orders`,
       withCredentials: true,
     });
   }

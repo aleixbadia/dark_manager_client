@@ -16,6 +16,7 @@ export class Home extends Component {
 
   loadAllBrands = () => {
     brandService.getAllBrands().then((response) => {
+      
       if (response) this.setState({ brands: response, isReady: true });
     });
   };

@@ -3,7 +3,7 @@ import axios from "axios";
 class RecipeService {
   constructor() {
     this.recipeApi = axios.create({
-      baseURL: "http://localhost:5000/api/recipes",
+      baseURL: `${process.env.REACT_APP_API_URL}/api/recipes`,
       withCredentials: true,
     });
   }
