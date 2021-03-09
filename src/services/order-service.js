@@ -31,6 +31,16 @@ class OrderService {
     return pr;
   }
 
+  getAllOrdersPopulated() {
+    const pr = this.orderApi
+      .get("/populated")
+      .then((response) => response.data)
+      .catch((err) =>
+        console.log("order-service - getAllOrdersPopulated error => ", err)
+      );
+    return pr;
+  }
+
   getOrderById(id) {
     const pr = this.orderApi
       .get(`/${id}`)
