@@ -1,0 +1,16 @@
+.edit-card {
+    border: 1px solid  rgb(133, 191, 196);
+    border-radius: 10%;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
+    margin: 5rem auto;
+    width: 30%;
+    height: 20rem;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display:flex;
+        margin-top: 30px;
+    
+  
+  }

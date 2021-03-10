@@ -37,7 +37,7 @@ class Stock extends Component {
             </tr>
             {ingredients.map((ingredient) => (
               <tr key={ingredient._id}>
-                <Link to={`/${ingredient._id}`}><td>{ingredient.name}</td></Link>
+                <Link to={`/dark-manager/ingredient/${ingredient._id}`}><td>{ingredient.name}</td></Link>
                 <td className={ingredient.currentStock<ingredient.minimum? "red": "green"}>{ingredient.currentStock}</td>
                 <td>{ingredient.minimum}</td>
               </tr>
