@@ -35,9 +35,11 @@ class Navbar extends Component {
               <p>
                 {user.name.firstName} {user.name.lastName}
               </p>
+              <Link to="/">
               <button className="navbar-button button is-success" onClick={logout}>
                 Logout
               </button>
+              </Link>
             </div>
           </>
         ) : (
