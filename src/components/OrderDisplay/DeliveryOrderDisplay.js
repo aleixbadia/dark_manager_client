@@ -1,38 +1,62 @@
 import React, { Component } from "react";
 import orderService from "../../services/order-service";
 import { withAuth } from "./../../context/auth-context";
+import Map from "./../../components/Map/Map";
 import "./OrderDisplay.css";
 
 class DeliveryOrderDisplay extends Component {
   state = {
-    allOrders: [],
+    deliveryOrders: [],
+    cookingOrders: [],
+    cooking: [],
+    delivery: [],
   };
 
   handleDelete = async (event) => {
     const { id } = event.target;
     await orderService.deleteOrder(id);
-    let newOrders = [...this.state.allOrders].filter(
+    let newOrders = [...this.state.deliveryOrders].filter(
       (order) => String(order._id) !== id
     );
-    this.setState({ allOrders: newOrders });
+    this.setState({ deliveryOrders: newOrders });
   };
 
   handleStage = async (event) => {
     const { id, value } = event.target;
     const userId = this.props.user._id;
-    
+
     await orderService.updateStageOrder(id, value, userId);
-    let newOrders = [...this.state.allOrders].filter(
+    let newOrders = [...this.state.deliveryOrders].filter(
       (order) => String(order._id) !== id
     );
-    this.setState({ allOrders: newOrders });
+    this.setState({ deliveryOrders: newOrders });
   };
 
   loadAllOrders = () => {
     orderService.getAllOrdersPopulated().then((orders) => {
       if (orders) {
-        const newOrders = orders.filter((order) => order.stage === "Delivery");
-        this.setState({ allOrders: newOrders });
+        const deliveryOrders = orders.filter(
+          (order) => order.stage === "Delivery"
+        );
+        const cookingOrders = orders.filter(
+          (order) => order.stage === "Cooking"
+        );
+        let cooking = [];
+        let delivery = [];
+        deliveryOrders.forEach((order) => {
+          cooking.push({
+            name: `${order.clientId.name.firstName} ${order.clientId.name.lastName}`,
+            coordinates: [2.0155, 41.5633],
+          });
+        });
+        cookingOrders.forEach((order) => {
+          delivery.push({
+            name: `${order.clientId.name.firstName} ${order.clientId.name.lastName}`,
+            coordinates: [2.0155, 41.5633],
+          });
+        });
+
+        this.setState({ deliveryOrders, cookingOrders, delivery, cooking });
       }
     });
   };
@@ -42,12 +66,14 @@ class DeliveryOrderDisplay extends Component {
   }
 
   render() {
-    const { allOrders } = this.state;
+    const { deliveryOrders, cooking, delivery } = this.state;
+
+    console.log(cooking);
 
     return (
       <div className="order-display">
         <label>Delivery orders:</label>
-        {allOrders.map((order) => (
+        {deliveryOrders.map((order) => (
           <div key={order._id}>
             <h3>
               {order.clientId.name.firstName} {order.clientId.name.lastName} -{" "}
@@ -71,6 +97,11 @@ class DeliveryOrderDisplay extends Component {
             </div>
           </div>
         ))}
+        {cooking.length > 0 || delivery.length > 0 ? (
+          <Map cooking={cooking} delivery={delivery} />
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
