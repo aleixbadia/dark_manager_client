@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 //import BarChart from "./BarChart";
-
 import { Bar } from "react-chartjs-2";
 import "./Stats.css";
 
 import { withAuth } from "./../../context/auth-context";
-import brandService from "../../services/brand-service";
-import recipeService from "../../services/recipe-service";
-import userService from "../../services/user-service";
+
 import orderService from "../../services/order-service";
 
 class Stats extends Component {
+
   state = {
     data: {
       labels: ["New", "Cooking", "Delivery", "Done"],
@@ -21,11 +19,12 @@ class Stats extends Component {
           backgroundColor: "rgba(75,192,192,1)",
           borderColor: "rgba(0,0,0,1)",
           borderWidth: 2,
-          data: [],
+          data: [1],
         },
       ],
-    },
+    }
   };
+
   // data son el numero de orders??
 
   componentDidMount() {
@@ -33,7 +32,8 @@ class Stats extends Component {
   }
 
   loadAllOrders = () => {
-    orderService.getAllOrders().then((orders) => {
+    orderService.getAllOrders()
+    .then((orders) => {
       console.log("orders", orders);
       console.log(
         "this.state.data.datasets[0].data",
@@ -58,13 +58,45 @@ class Stats extends Component {
           Done ++;
         }
       });
-      console.log('DATA', data)
-      console.log('DATA1', data[1])
-      console.log('Done', Done)
-      console.log('Cooking', Cooking)
-      this.setState({ data: New, Cooking, Delivery, Done })
-    });
-  };  
+
+      // console.log('DATA', data)
+      // console.log('DATA1', data[1])
+      // console.log('New', New)
+      // console.log('Done', Done)
+      // console.log('Delivery', Delivery)
+      // console.log('Cooking', Cooking)
+      // console.log("data", data)
+
+      let array = []
+      array.push(New)
+      array.push(Cooking)
+      array.push(Delivery)
+      array.push(Done)
+    //  console.log('array', array)
+
+      const updatedData = {
+          labels: ["New", "Cooking", "Delivery", "Done"],
+    
+          datasets: [
+            {
+              label: "Orders",
+              backgroundColor: "rgba(75,192,192,1)",
+              borderColor: "rgba(0,0,0,1)",
+              borderWidth: 2,
+              data: array,
+            },
+          ]
+      }
+      
+
+
+        
+       this.setState({data: updatedData})
+   
+      })
+      .catch((err) => console.log(err))
+  }; 
+   
 
   render() {
     return (
@@ -77,8 +109,24 @@ class Stats extends Component {
               text: "Current orders",
               fontSize: 20,
             },
+            scales: {
+            yAxes: [{
+              ticks: {
+                scaleStartValue:0,
+                beginAtZero: true,
+                min: 0,
+                max: 7,
+                stepSize: 1,
+              }
+            }]
+          }
           }}
         />
+  
+
+     <footer className="footer-class">
+          Dark Manager 2021
+        </footer>
       </div>
     );
   }
@@ -86,16 +134,3 @@ class Stats extends Component {
 
 export default withAuth(Stats);
 
-// loadAllOrders = () => {
-//   orderService.getAllOrders().then((order) => {
-//     recipeService.getRecipeById(order.cart.recipeId).then((recipe)=> {
-//       recipe.map((recipe)=>(
-//         this.setState({ labels: recipe})
-//       ))
-//       }
-//     )
-//   console.log('order', order)
-//   console.log('order.cart', order[0].cart[0])
-
-//   });
-// };

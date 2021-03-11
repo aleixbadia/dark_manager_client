@@ -1,45 +1,79 @@
-import React from "react";
+// import React, { Component } from "react";
 
-class BarChart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.chartRef = React.createRef();
-  }
+// import { Bar } from "react-chartjs-2";
+// import "./Stats.css";
 
-  componentDidMount() {
-    this.myChart = new Chart(this.canvasRef.current, {
-      type: "bar",
-    });
-  }
-  
-  function getFeeds() {
-    let feeds = [];
-  
-    feeds.push({
-      title: 'Visits',
-      data: getRandomDateArray(150)
-    });
-  
-    feeds.push({
-      title: 'Categories',
-      data: getRandomArray(20)
-    });
-  
-    feeds.push({
-      title: 'Categories',
-      data: getRandomArray(10)
-    });
-  
-    feeds.push({
-      title: 'Data 4',
-      data: getRandomArray(6)
-    });
-  
-    return feeds;
-  }
-  render() {
-    return <canvas ref={this.chartRef} />;
-  }
-}
+// import { withAuth } from "./../../context/auth-context";
+// import brandService from "../../services/brand-service";
+// import recipeService from "../../services/recipe-service";
+// import userService from "../../services/user-service";
+// import orderService from "../../services/order-service";
 
-export default BarChart;
+// // en barchart vamos a mostrar las recipes mas populares
+// //get recipe
+
+// class BarChart extends Component {
+
+//   // state = {
+//   //   data: {
+//   //     labels: ["New", "Cooking", "Delivery", "Done"],
+
+//   //     datasets: [
+//   //       {
+//   //         label: "Orders",
+//   //         backgroundColor: "rgba(75,192,192,1)",
+//   //         borderColor: "rgba(0,0,0,1)",
+//   //         borderWidth: 2,
+//   //         data: [1],
+//   //       },
+//   //     ],
+//   //   },
+//   // };
+
+//   // data son el numero de orders??
+
+//   componentDidMount() {
+//     this.loadOrdersAndRecipes();
+//   }
+
+//   loadOrdersAndRecipes = () => {
+
+
+//     orderService.getAllOrders().then((orders) => {
+//       console.log('orders',orders)
+//       orders.map((order)=>{
+    
+//       })
+     
+//       // const id = order.cart.recipeId
+//       // recipeService.getRecipeById(id).then((recipes) => {
+     
+//       //   console.log("recipes", recipes);
+
+     
+//       // });
+//     });
+//   }; 
+   
+
+//   render() {
+//     return (
+//       <div className="graph">
+//      <p>hi</p> 
+//         {/* <Bar
+//           data={this.state.data}
+//           options={{
+//             title: {
+//               display: true,
+//               text: "Current orders",
+//               fontSize: 20,
+//             },
+//           }}
+//         /> */}
+
+//       </div>
+//     );
+//   }
+// }
+
+// export default withAuth(BarChart);

@@ -44,6 +44,9 @@ export class Orders extends Component {
         {newShow ? <NewOrderDisplay /> : <></>}
         {cookingShow ? <CookingOrderDisplay /> : <></>}
         {deliveryShow ? <DeliveryOrderDisplay /> : <></>}
+        <footer>
+          Dark Manager 2021
+        </footer>   
       </div>
     );
   }

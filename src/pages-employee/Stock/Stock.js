@@ -44,6 +44,9 @@ class Stock extends Component {
             ))}
           </table>
         </div>
+        <footer className="footer-class">
+          Dark Manager 2021
+        </footer>
       </div>
     );
   }

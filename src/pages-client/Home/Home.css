@@ -7,6 +7,7 @@
 html, body {
   margin: 0 !important;
   padding: 0 !important;
+
 }
 h1{
   text-align: center;
@@ -22,7 +23,8 @@ h1{
   max-width: 100%;
 }
 .logos {
-    width: 10em;
+    width: 8em;
+    
 }
 .main {
   display: flex;
@@ -30,8 +32,34 @@ h1{
   }
   .brands {
     width: 40%;
+    text-align: center;
    
   }
+  .menu-card {
+    border: 1px solid  rgb(133, 191, 196);
+    border-radius: 10%;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin: 0 40px;
+
+  }
+  .cart { 
+    border: 1px solid  rgb(133, 191, 196);
+    border-radius: 10%;
+    box-shadow: 5px 5px  rgb(133, 191, 196);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin: 0 40px;
+
+  }
+
 .brand-card {
   border: 1px solid  rgb(133, 191, 196);
   border-radius: 10%;
@@ -48,8 +76,7 @@ h1{
 .recipe-card {
     width: 30%;
     padding: 0 30px;
-    border-radius: 10%;
-    box-shadow: 5px 5px  rgb(133, 191, 196);
+   
 }
 .checkout {
   border: 1px solid  rgb(133, 191, 196);
@@ -64,3 +91,19 @@ h1{
   justify-content: center;
   
 }
+
+footer {
+  background-color: rgb(133, 191, 196);
+  color: white;
+  position: fixed;
+  bottom: 0;
+  height: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer:hover {
+  height: 0vh;
+}
+.hi {}

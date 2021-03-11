@@ -66,17 +66,14 @@ class Brand extends Component {
   }
 
   render() {
-    
-
     const { brand, recipes, cart } = this.state;
 
     return (
       <div className="main" key={brand._id}>
         <div className="brands">
-          <h1>Brand details</h1>
-          <h2>Welcome to {brand.name}</h2>
-
-          <h2>Menu</h2>
+          <h1>Welcome to {brand.name}</h1>
+         <div className= 'menu-card'>
+          <h1>Menu</h1>
 
           {this.props.user ? (
             <div>
@@ -118,9 +115,11 @@ class Brand extends Component {
             </div>
           )}
         </div>
+        </div>
         <div>
-          <h2>User cart </h2>
-          <div>
+          {cart.length > 0 ? (<h2>Your cart</h2>) : (<h2>Your cart is empty</h2>)}
+        
+          <div  className={cart.length>0? "cart" : 'hi'}>
             {cart.map((cartObj) => (
               <div key={cartObj.recipeId._id}>
                 <div className="recipe-card">
@@ -142,7 +141,6 @@ class Brand extends Component {
                 </div>
               </div>
             ))}
-          </div>
 
           {cart.length > 0 ? (
             <Link to={`/checkout`}>
@@ -157,7 +155,11 @@ class Brand extends Component {
           ) : (
             <> </>
           )}
+          </div>
         </div>
+        <footer>
+          Dark Manager 2021
+        </footer>
       </div>
     );
   }
@@ -165,20 +167,44 @@ class Brand extends Component {
 
 export default withAuth(Brand);
 
-///
 
-//  {recipes.map((recipe) => (
-//   <div key={recipe._id}>
+
+// <div>
+// {cart.map((cartObj) => (
+//   <div  className='cart' key={cartObj.recipeId._id}>
 //     <div className="recipe-card">
-//       <h2>{recipe.name}</h2>
-//       <img className="logos" src={recipe.picture} alt="recipe" />
+//       <h2>
+//         {cartObj.recipeId.name} - {cartObj.quantity}
+//       </h2>
+//       <img
+//         className="logos"
+//         src={cartObj.recipeId.picture}
+//         alt="recipe"
+//       />
 //       <button
 //         onClick={() => {
-//           this.handleAddClick(recipe._id);
+//           this.handleDeleteClick(cartObj.recipeId._id);
 //         }}
 //       >
-//         Add to cart
+//         Remove from cart
 //       </button>
 //     </div>
 //   </div>
 // ))}
+// </div>
+
+// {cart.length > 0 ? (
+// <Link to={`/checkout`}>
+//   <button
+//     onClick={() => {
+//       this.handleOrderClick();
+//     }}
+//   >
+//     Proceed to checkout
+//   </button>
+// </Link>
+// ) : (
+// <> </>
+// )}
+// </div>
+// </div>

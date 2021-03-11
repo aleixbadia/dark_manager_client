@@ -39,6 +39,9 @@ export class Home extends Component {
           </div>
         ))}
         </div>
+        <footer>
+          Dark Manager 2021
+        </footer>
       </div>
     );
   }

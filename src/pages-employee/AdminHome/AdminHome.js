@@ -19,6 +19,9 @@ export class AdminHome extends Component {
             </Link>
           </div>
         ))}
+        <footer>
+          Dark Manager 2021
+        </footer>
       </div>
     );
   }
