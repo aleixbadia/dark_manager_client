@@ -46,13 +46,13 @@ class DeliveryOrderDisplay extends Component {
         deliveryOrders.forEach((order) => {
           cooking.push({
             name: `${order.clientId.name.firstName} ${order.clientId.name.lastName}`,
-            coordinates: [2.0155, 41.5633],
+            coordinates: order.clientId.location,
           });
         });
         cookingOrders.forEach((order) => {
           delivery.push({
             name: `${order.clientId.name.firstName} ${order.clientId.name.lastName}`,
-            coordinates: [2.0155, 41.5633],
+            coordinates: order.clientId.location,
           });
         });
 
