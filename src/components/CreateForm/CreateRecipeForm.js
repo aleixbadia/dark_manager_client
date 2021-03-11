@@ -33,7 +33,7 @@ class CreateRecipeForm extends Component {
     recipePackaging = recipePackaging.filter(
       (packaging) => packaging.quantity > 0
     );
-
+    console.log('ingredientsCreate',ingredients)
     recipeService.createRecipe(
       name,
       brandId,

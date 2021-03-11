@@ -64,9 +64,7 @@ export class Create extends Component {
         {packagingShow ? <CreatePackagingForm /> : <></>}
         {recipeShow ? <CreateRecipeForm /> : <></>}
         
-        <footer className="footer-class">
-          Dark Manager 2021
-        </footer>
+      
       </div>
     );
   }

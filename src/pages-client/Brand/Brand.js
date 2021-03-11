@@ -71,7 +71,7 @@ class Brand extends Component {
     return (
       <div className="main" key={brand._id}>
         <div className="brands">
-          <h1>Welcome to {brand.name}</h1>
+          <h1>Welcome to {brand.name} !</h1>
          <div className= 'menu-card'>
           <h1>Menu</h1>
 
@@ -117,11 +117,14 @@ class Brand extends Component {
         </div>
         </div>
         <div>
-          {cart.length > 0 ? (<h2>Your cart</h2>) : (<h2>Your cart is empty</h2>)}
+          {cart.length > 0 ? (<></>) : (<h2>Your cart is empty    (⌣́_⌣̀) </h2>)}
         
           <div  className={cart.length>0? "cart" : 'hi'}>
+          {cart.length > 0 ? (<h2>Your cart </h2>) : (<></>)}
             {cart.map((cartObj) => (
+            
               <div key={cartObj.recipeId._id}>
+             
                 <div className="recipe-card">
                   <h2>
                     {cartObj.recipeId.name} - {cartObj.quantity}
@@ -136,13 +139,14 @@ class Brand extends Component {
                       this.handleDeleteClick(cartObj.recipeId._id);
                     }}
                   >
-                    Remove from cart
+                    Remove
                   </button>
                 </div>
               </div>
             ))}
 
           {cart.length > 0 ? (
+            
             <Link to={`/checkout`}>
               <button
                 onClick={() => {

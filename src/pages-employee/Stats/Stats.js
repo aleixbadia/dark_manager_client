@@ -100,7 +100,8 @@ class Stats extends Component {
 
   render() {
     return (
-      <div className="graph">
+      <div>
+       <div className="graph">
         <Bar
           data={this.state.data}
           options={{
@@ -122,8 +123,8 @@ class Stats extends Component {
           }
           }}
         />
-  
-
+        
+         </div>
      <footer className="footer-class">
           Dark Manager 2021
         </footer>
